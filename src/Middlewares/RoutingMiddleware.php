@@ -18,7 +18,9 @@ class RoutingMiddleware implements MiddlewareInterface
 	public function process(Request $request): Response
 	{
 		$dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $r) {
+            $r->addRoute(Request::METHOD_GET, "/test", ["Test", "insert"]);
 
+            $r->addRoute(Request::METHOD_GET, "/test_get", ["Test", "dbGet"]);
         });
 
 		$httpMethod = $request->getMethod();
