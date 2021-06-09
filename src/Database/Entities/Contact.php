@@ -8,6 +8,15 @@ namespace App\Database\Entities;
  */
 class Contact
 {
+    const ID = "id";
+    const FIRST_NAME = "first_name";
+    const LAST_NAME = "last_name";
+    const PHONE_NUMBER = "phone_number";
+    const COUNTRY_CODE = "country_code";
+    const TIMEZONE = "timezone";
+    const INSERTED_ON = "inserted_on";
+    const UPDATED_ON = "updated_on";
+
     /**
      * @var int
      * @Id

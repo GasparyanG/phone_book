@@ -4,8 +4,11 @@
 namespace App\Services\Validation;
 
 
-class AbstractStrategy
+abstract class AbstractStrategy
 {
+    // Options configuration
+    const CONTAINER = "container";
+
     static $errorMessage;
 
     /*

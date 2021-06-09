@@ -4,7 +4,7 @@ namespace App\Services\Validation;
 
 class Validator
 {
-    public function validate($value, array $validationStrategies): array   // This will return violations
+    public function validate($value, array $validationStrategies): array
     {
         $error = [];
         forEach ($validationStrategies as $strategy) {

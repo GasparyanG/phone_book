@@ -4,6 +4,7 @@
 namespace App\Controllers;
 
 
+use App\Models\ContactManipulator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -11,10 +12,11 @@ class Contact
 {
     public function create(Request $req): Response
     {
+        $contactMn = new ContactManipulator();
+        $creationResponse = $contactMn->create($req);
 
-        $data = $req->getContent();
-        $resp = new Response($data);
-//        $resp->headers->set("Content-Type","application/json");
+        // Respond
+        $resp = new Response(json_encode($creationResponse));
         return $resp;
     }
 }
