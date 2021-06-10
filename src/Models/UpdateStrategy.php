@@ -13,6 +13,9 @@ class UpdateStrategy extends ContactManipulator
 {
     public function actUpon(Request $req, array $placeholders = []): array
     {
+        if (!$this->resourceExists($placeholders[Contact::ID]))
+            return $this->notFound();
+
         $content = $req->getContent();
         $decodedContent = json_decode($content, true);
 

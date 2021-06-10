@@ -154,6 +154,27 @@ abstract class ContactManipulator
         return $resource->getRepresentation();
     }
 
+    protected function resourceExists(int $id): bool
+    {
+        $contact = $this->em->getRepository(Contact::class)->find($id);
+
+        if ($contact) return true;
+        return false;
+    }
+
+    protected function notFound(): array
+    {
+        $error = new Error();
+        $error->setStatus(Response::HTTP_NOT_FOUND);
+        $error->setTitle(Response::$statusTexts[Response::HTTP_NOT_FOUND]);
+
+        $error->arrayRepresentation();
+        $representation = $error->getRepresentation();
+
+        unset($representation[Error::ERRORS]);
+        return $representation;
+    }
+
     protected function prepareAttributes(Contact $contact): array
     {
         $attributes = [];
