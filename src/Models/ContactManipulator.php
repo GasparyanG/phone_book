@@ -175,7 +175,28 @@ class ContactManipulator // This eventually should become an abstract class with
 
     protected function success(Contact $contact): array
     {
-        // TODO: Deal with success preparation.
-        return ["error" => false];
+        // Prepare resource.
+        $resource = new Resource();
+        $resource->setId($contact->getId());
+        $resource->setType(Contact::$table_name);
+        $resource->setAttributes($this->prepareAttributes($contact));
+
+        $resource->arrayRepresentation();
+        return $resource->getRepresentation();
+    }
+
+    protected function prepareAttributes(Contact $contact): array
+    {
+        $attributes = [];
+
+        $attributes[Contact::FIRST_NAME] = $contact->getFirstName();
+        $attributes[Contact::LAST_NAME] = $contact->getLastName();
+        $attributes[Contact::PHONE_NUMBER] = $contact->getPhoneNumber();
+        $attributes[Contact::COUNTRY_CODE] = $contact->getCountryCode();
+        $attributes[Contact::TIMEZONE] = $contact->getTimezone();
+        $attributes[Contact::INSERTED_ON] = $contact->getInsertedOn()->format('Y-m-d H:i:s');
+        $attributes[Contact::UPDATED_ON] = $contact->getUpdatedOn()->format('Y-m-d H:i:s');
+
+        return $attributes;
     }
 }

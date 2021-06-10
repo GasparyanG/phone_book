@@ -63,7 +63,7 @@ class Resource
      */
     private $meta;
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->decomposeAttributes($data);
         $this->decomposeType($data);

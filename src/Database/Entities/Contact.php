@@ -8,6 +8,8 @@ namespace App\Database\Entities;
  */
 class Contact
 {
+    static $table_name = "contacts";
+
     const ID = "id";
     const FIRST_NAME = "first_name";
     const LAST_NAME = "last_name";
