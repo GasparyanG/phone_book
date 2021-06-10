@@ -11,7 +11,8 @@ class ReadingStrategy extends ContactManipulator
 {
     public function actUpon(Request $req, array $placeholders = []): array
     {
-        if (!$this->resourceExists($placeholders[Contact::ID]))
+        if (!is_numeric($placeholders[Contact::ID])
+            || !$this->resourceExists($placeholders[Contact::ID]))
             return $this->notFound();
 
         return $this->contactResource($placeholders[Contact::ID]);

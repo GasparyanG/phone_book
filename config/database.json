@@ -1,0 +1,12 @@
+{
+  "in_use" : "connection_1_mysql",
+
+  "connection_1_mysql" : {
+    "driver"   : "pdo_mysql",
+    "host"     : "localhost",
+    "port"     : 3306,
+    "dbname"   : "phone_book",
+    "user"     : "your username here",
+    "password" : "you password here"
+  }
+}
