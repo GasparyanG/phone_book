@@ -5,6 +5,7 @@ namespace App\Controllers;
 
 
 use App\Models\ContactManipulator;
+use App\Services\API\JsonAPI\Error;
 use App\Services\API\JsonAPI\Resource;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,8 @@ class Contact
         $resp = new Response(json_encode($creationResponse));
         if (isset($creationResponse[Resource::DATA]))
             $resp->setStatusCode(Response::HTTP_CREATED);
+        else if (isset($creationResponse[Error::ERRORS]))
+            $resp->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
 
         return $resp;
     }

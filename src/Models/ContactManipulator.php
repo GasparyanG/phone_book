@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Database\Connection;
 use App\Database\Entities\Contact;
 use App\Services\API\External\Endpoints;
+use App\Services\API\JsonAPI\Error;
 use App\Services\API\JsonAPI\Resource;
 use App\Services\Validation\AbstractStrategy;
 use App\Services\Validation\InAContainer;
@@ -15,6 +16,7 @@ use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as RequestGuzzle;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class ContactManipulator // This eventually should become an abstract class with strategies!
 {
@@ -169,8 +171,13 @@ class ContactManipulator // This eventually should become an abstract class with
     // Responses
     protected function error(array $violations): array
     {
-        // TODO: Deal with error preparation.
-        return ["errors" => $violations];
+        $error = new Error();
+        $error->setStatus(Response::HTTP_UNPROCESSABLE_ENTITY);
+        $error->setTitle(Response::$statusTexts[Response::HTTP_UNPROCESSABLE_ENTITY]);
+        $error->setErrors($violations);
+
+        $error->arrayRepresentation();
+        return $error->getRepresentation();
     }
 
     protected function success(Contact $contact): array
