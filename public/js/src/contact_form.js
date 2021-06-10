@@ -1,6 +1,8 @@
 import {ContactEntity, SpecificationAssembler} from "../react_app/resource";
 
 class Form extends React.Component {
+    static id = 'crt';
+
     constructor(props) {
         super(props);
 
@@ -34,7 +36,7 @@ class Form extends React.Component {
     }
 
     updateField = (e) => {
-        this.data[e.target.name] = e.target.value;
+        this.data[e.target.name + Form.id] = e.target.value;
     }
 
     render() {
@@ -43,14 +45,14 @@ class Form extends React.Component {
                 <div className="navigation__form mx-3">
                     <div className="navigation__form__input">
                         <div className="input-group input-group-sm mb-3 w-25">
-                            <label className="input-group-text" htmlFor="first_name">First Name</label>
-                            <input onChange={this.updateField} className="form-control" id="first_name" name="first_name" type="text"
+                            <label className="input-group-text" htmlFor={"first_name" + Form.id}>First Name</label>
+                            <input onChange={this.updateField} className="form-control" id={"first_name" + Form.id} name={"first_name" + Form.id} type="text"
                                 placeholder="Type fist name..."/>
                         </div>
 
                         <div className="input-group input-group-sm mb-3 w-25">
-                            <label className="input-group-text" htmlFor="last_name">Last Name</label>
-                            <input onChange={this.updateField} className="form-control" id="last_name" name="last_name" type="text"
+                            <label className="input-group-text" htmlFor={"last_name" + Form.id}>Last Name</label>
+                            <input onChange={this.updateField} className="form-control" id={"last_name" + Form.id} name={"last_name" + Form.id} type="text"
                                    placeholder="Type last name..."/>
                         </div>
                     </div>

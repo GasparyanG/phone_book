@@ -1,44 +1,95 @@
-import {Resource} from "../react_app/resource";
+import {ContactEntity, Resource, SpecificationAssembler} from "../react_app/resource";
 
-function Contact(props) {
-    return (
-        <div className="card mx-3">
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="id">id</label>
-                <div id="id" className="form-control"/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="first_name">First Name</label>
-                <input id="first_name" className="form-control" type="text" value = {props.attributes.first_name}/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="last_name">Last Name</label>
-                <input id="last_name" className="form-control" type="text" value = {props.attributes.last_name}/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="phone_number">First Name</label>
-                <input id="phone_number" className="form-control" type="text" value = {props.attributes.phone_number}/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="country_code">Country Code</label>
-                <input id="country_code" className="form-control" type="text" value = {props.attributes.country_code}/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="timezone">Timezone</label>
-                <input id="timezone" className="form-control" type="text" value = {props.attributes.timezone}/>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="inserted_on">Created</label>
-                <div id="inserted_on" className="form-control">{props.attributes.inserted_on}</div>
-            </div>
-            <div className="input-group input-group-sm mb-1">
-                <label className="input-group-text" htmlFor="updated_on">Updated</label>
-                <div id="updated_on" className="form-control">{props.attributes.updated_on}</div>
-            </div>
+class Contact extends React.Component {
+    constructor(props) {
+        super(props);
 
-            <button className="btn btn-secondary mt-1">update</button>
-        </div>
-    );
+        this.updated = 0;
+
+        this.data = {
+            first_name: this.props.attributes.first_name,
+            last_name: this.props.attributes.last_name,
+            phone_number: this.props.attributes.phone_number,
+            country_code: this.props.attributes.country_code,
+            timezone: this.props.attributes.timezone,
+            inserted_on: this.props.attributes.inserted_on,
+            updated_on: this.props.attributes.updated_on
+        }
+    }
+
+    updateContact = () => {
+        let specAssembler = new SpecificationAssembler(this.data, ContactEntity.table_name, true);
+
+        let self = this;
+        let encodedData = JSON.stringify(specAssembler.spec);
+        $.ajax({
+            url: "/" + ContactEntity.table_name + "/" + self.props.attributes.id,
+            method: "PATCH",
+            data: encodedData,
+            // dataType: Resource.dataType,
+            success: function(result) {
+                console.log(result);
+            },
+            error: function(e) {
+                console.log(e);
+            }
+        });
+    }
+
+    updateField = (e) => {
+        this.data[e.target.name + this.props.attributes.id] = e.target.value;
+    }
+
+    render() {
+        return (
+            <div className="card mx-3">
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"id" + this.props.attributes.id}>id</label>
+                    <div id={"id" + this.props.attributes.id} className="form-control">{this.props.attributes.id}</div>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"first_name" + this.props.attributes.id}>First Name</label>
+                    <input onChange={this.updateField} name={"first_name" + this.props.attributes.id}
+                           id={"first_name" + this.props.attributes.id} className="form-control" type="text"
+                           defaultValue={this.props.attributes.first_name}/>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"last_name" + this.props.attributes.id}>Last Name</label>
+                    <input onChange={this.updateField} name={"last_name" + this.props.attributes.id}
+                           id={"last_name" + this.props.attributes.id} className="form-control" type="text"
+                           defaultValue={this.props.attributes.last_name}/>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"phone_number" + this.props.attributes.id}>First Name</label>
+                    <input onChange={this.updateField} name={"phone_number" + this.props.attributes.id}
+                           id={"phone_number" + this.props.attributes.id} className="form-control" type="text"
+                           defaultValue={this.props.attributes.phone_number}/>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"country_code" + this.props.attributes.id}>Country Code</label>
+                    <input onChange={this.updateField} name={"country_code" + this.props.attributes.id}
+                           id={"country_code" + this.props.attributes.id} className="form-control" type="text"
+                           defaultValue={this.props.attributes.country_code}/>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"timezone" + this.props.attributes.id}>Timezone</label>
+                    <input onChange={this.updateField} name={"timezone" + this.props.attributes.id}
+                           id={"timezone" + this.props.attributes.id} className="form-control" type="text"
+                           defaultValue={this.props.attributes.timezone}/>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"inserted_on" + this.props.attributes.id}>Created</label>
+                    <div id={"inserted_on" + this.props.attributes.id} className="form-control">{this.props.attributes.inserted_on}</div>
+                </div>
+                <div className="input-group input-group-sm mb-1">
+                    <label className="input-group-text" htmlFor={"updated_on" + this.props.attributes.id}>Updated</label>
+                    <div id={"updated_on" + this.props.attributes.id} className="form-control">{this.props.attributes.updated_on}</div>
+                </div>
+
+                <button onClick={this.updateContact} className="btn btn-secondary mt-1">update</button>
+            </div>
+        );
+    }
 }
 
 class Contacts extends React.Component {

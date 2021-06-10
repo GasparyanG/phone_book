@@ -52,7 +52,7 @@ var Form = /*#__PURE__*/function (_React$Component) {
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateField", function (e) {
-      _this.data[e.target.name] = e.target.value;
+      _this.data[e.target.name + Form.id] = e.target.value;
     });
 
     _this.data = {
@@ -78,24 +78,24 @@ var Form = /*#__PURE__*/function (_React$Component) {
         className: "input-group input-group-sm mb-3 w-25"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
-        htmlFor: "first_name"
+        htmlFor: "first_name" + Form.id
       }, "First Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
         className: "form-control",
-        id: "first_name",
-        name: "first_name",
+        id: "first_name" + Form.id,
+        name: "first_name" + Form.id,
         type: "text",
         placeholder: "Type fist name..."
       })), /*#__PURE__*/React.createElement("div", {
         className: "input-group input-group-sm mb-3 w-25"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
-        htmlFor: "last_name"
+        htmlFor: "last_name" + Form.id
       }, "Last Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
         className: "form-control",
-        id: "last_name",
-        name: "last_name",
+        id: "last_name" + Form.id,
+        name: "last_name" + Form.id,
         type: "text",
         placeholder: "Type last name..."
       }))), /*#__PURE__*/React.createElement("div", {
@@ -149,5 +149,7 @@ var Form = /*#__PURE__*/function (_React$Component) {
 
   return Form;
 }(React.Component);
+
+_defineProperty(Form, "id", 'crt');
 
 export { Form };

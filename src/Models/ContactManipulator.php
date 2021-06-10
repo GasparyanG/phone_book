@@ -179,6 +179,7 @@ abstract class ContactManipulator
     {
         $attributes = [];
 
+        $attributes[Contact::ID] = $contact->getId();
         $attributes[Contact::FIRST_NAME] = $contact->getFirstName();
         $attributes[Contact::LAST_NAME] = $contact->getLastName();
         $attributes[Contact::PHONE_NUMBER] = $contact->getPhoneNumber();
