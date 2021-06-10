@@ -4,7 +4,7 @@ Interact with data storage via flexible JSON:API.
 ## Installation and Setup
 
 ### Database
-Configure `config/database.json` file to be able to use database.
+Configure the `config/database.json` file to be able to use database.
 ```json
 {
   "in_use" : "connection_1_mysql",
@@ -18,6 +18,22 @@ Configure `config/database.json` file to be able to use database.
     "password" : "password"
   }
 }
+
+```
+
+
+The only table used in this project:
+```sql
+create table if not exists contacts(
+    id int not null auto_increment primary key,
+    first_name varchar(150) not null,
+    last_name varchar(150),
+    phone_number varchar(50) not null,
+    country_code varchar(3),
+    timezone varchar(50),
+    inserted_on datetime not null,
+    updated_on datetime not null
+);
 
 ```
 
@@ -57,7 +73,7 @@ Configure your apache in the following directory `/etc/apache2`.
 The app is ideally meant to be used via API client (e.g. Postman), but it can be used in the browser as well, although, with some limitations (e.g. pagination, deletion).
 
 ### API Calls
-1. **Create contact** (phone book record)
+1. **Create contact** (phone-book record)
 
 **Request**
 
@@ -350,7 +366,7 @@ $this->createQueryBuilder('c')
 {"status":"404","title":"Not Found"}
 ```
 
-* If there is any error detected while validating the fields the `422` error will be returned with appropriate message(s).
+* If there is any error detected while validating the fields, the `422` error will be returned with appropriate message(s).
 ```json
 {
     "status": "422",
