@@ -24,6 +24,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 import { Form } from "./contact_form";
 import { Contacts } from "./contacts";
+import { Search } from "./search";
 import { ContactEntity } from "../react_app/resource";
 
 var TheView = /*#__PURE__*/function (_React$Component) {
@@ -67,12 +68,32 @@ var TheView = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "search", function (e) {
+      if (e.keyCode != 13) return;
+
+      var self = _assertThisInitialized(_this);
+
+      $.ajax({
+        url: "/" + ContactEntity.table_name + "?search=" + e.target.value,
+        method: "GET",
+        success: function success(result) {
+          self.updateContacts(JSON.parse(result));
+        },
+        error: function error(e) {
+          console.log(e);
+        }
+      });
+    });
+
     _this.populateContacts();
 
     _this.state = {
       new_is_pressed: false,
       contacts: []
-    };
+    }; // Bindings
+
+    _this.populate = _this.populateContacts.bind(_assertThisInitialized(_this));
+    _this.searchContact = _this.search.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -81,11 +102,19 @@ var TheView = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         className: "navigation"
-      }, /*#__PURE__*/React.createElement("button", {
-        className: "btn btn-primary mx-3 my-3",
+      }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+        className: "input-group input-group-sm my-3 col-md-8 offset-md-4"
+      }, /*#__PURE__*/React.createElement("label", {
+        className: "input-group-text"
+      }, "Hit Enter"), /*#__PURE__*/React.createElement(Search, {
+        searchContact: this.searchContact,
+        className: "form-control"
+      }), /*#__PURE__*/React.createElement("button", {
+        className: "btn btn-secondary",
         onClick: this.openContactForm,
         type: "navigation__button"
-      }, "New Contact"), /*#__PURE__*/React.createElement(Form, {
+      }, "New Contact"))), /*#__PURE__*/React.createElement(Form, {
+        populate: this.populate,
         new_is_pressed: this.state.new_is_pressed
       }), /*#__PURE__*/React.createElement(Contacts, {
         contacts: this.state.contacts

@@ -31,13 +31,12 @@ class Contact extends React.Component {
                 console.log(result);
             },
             error: function(e) {
-                console.log(e);
             }
         });
     }
 
     updateField = (e) => {
-        this.data[e.target.name + this.props.attributes.id] = e.target.value;
+        this.data[e.target.name] = e.target.value;
     }
 
     render() {
@@ -49,31 +48,31 @@ class Contact extends React.Component {
                 </div>
                 <div className="input-group input-group-sm mb-1">
                     <label className="input-group-text" htmlFor={"first_name" + this.props.attributes.id}>First Name</label>
-                    <input onChange={this.updateField} name={"first_name" + this.props.attributes.id}
+                    <input onChange={this.updateField} name="first_name"
                            id={"first_name" + this.props.attributes.id} className="form-control" type="text"
                            defaultValue={this.props.attributes.first_name}/>
                 </div>
                 <div className="input-group input-group-sm mb-1">
                     <label className="input-group-text" htmlFor={"last_name" + this.props.attributes.id}>Last Name</label>
-                    <input onChange={this.updateField} name={"last_name" + this.props.attributes.id}
+                    <input onChange={this.updateField} name="last_name"
                            id={"last_name" + this.props.attributes.id} className="form-control" type="text"
                            defaultValue={this.props.attributes.last_name}/>
                 </div>
                 <div className="input-group input-group-sm mb-1">
-                    <label className="input-group-text" htmlFor={"phone_number" + this.props.attributes.id}>First Name</label>
-                    <input onChange={this.updateField} name={"phone_number" + this.props.attributes.id}
+                    <label className="input-group-text" htmlFor={"phone_number" + this.props.attributes.id}>Phone Number</label>
+                    <input onChange={this.updateField} name="phone_number"
                            id={"phone_number" + this.props.attributes.id} className="form-control" type="text"
                            defaultValue={this.props.attributes.phone_number}/>
                 </div>
                 <div className="input-group input-group-sm mb-1">
                     <label className="input-group-text" htmlFor={"country_code" + this.props.attributes.id}>Country Code</label>
-                    <input onChange={this.updateField} name={"country_code" + this.props.attributes.id}
+                    <input onChange={this.updateField} name="country_code"
                            id={"country_code" + this.props.attributes.id} className="form-control" type="text"
                            defaultValue={this.props.attributes.country_code}/>
                 </div>
                 <div className="input-group input-group-sm mb-1">
                     <label className="input-group-text" htmlFor={"timezone" + this.props.attributes.id}>Timezone</label>
-                    <input onChange={this.updateField} name={"timezone" + this.props.attributes.id}
+                    <input onChange={this.updateField} name="timezone"
                            id={"timezone" + this.props.attributes.id} className="form-control" type="text"
                            defaultValue={this.props.attributes.timezone}/>
                 </div>

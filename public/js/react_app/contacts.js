@@ -50,14 +50,12 @@ var Contact = /*#__PURE__*/function (_React$Component) {
         success: function success(result) {
           console.log(result);
         },
-        error: function error(e) {
-          console.log(e);
-        }
+        error: function error(e) {}
       });
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateField", function (e) {
-      _this.data[e.target.name + _this.props.attributes.id] = e.target.value;
+      _this.data[e.target.name] = e.target.value;
     });
 
     _this.updated = 0;
@@ -93,7 +91,7 @@ var Contact = /*#__PURE__*/function (_React$Component) {
         htmlFor: "first_name" + this.props.attributes.id
       }, "First Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "first_name" + this.props.attributes.id,
+        name: "first_name",
         id: "first_name" + this.props.attributes.id,
         className: "form-control",
         type: "text",
@@ -105,7 +103,7 @@ var Contact = /*#__PURE__*/function (_React$Component) {
         htmlFor: "last_name" + this.props.attributes.id
       }, "Last Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "last_name" + this.props.attributes.id,
+        name: "last_name",
         id: "last_name" + this.props.attributes.id,
         className: "form-control",
         type: "text",
@@ -115,9 +113,9 @@ var Contact = /*#__PURE__*/function (_React$Component) {
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
         htmlFor: "phone_number" + this.props.attributes.id
-      }, "First Name"), /*#__PURE__*/React.createElement("input", {
+      }, "Phone Number"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "phone_number" + this.props.attributes.id,
+        name: "phone_number",
         id: "phone_number" + this.props.attributes.id,
         className: "form-control",
         type: "text",
@@ -129,7 +127,7 @@ var Contact = /*#__PURE__*/function (_React$Component) {
         htmlFor: "country_code" + this.props.attributes.id
       }, "Country Code"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "country_code" + this.props.attributes.id,
+        name: "country_code",
         id: "country_code" + this.props.attributes.id,
         className: "form-control",
         type: "text",
@@ -141,7 +139,7 @@ var Contact = /*#__PURE__*/function (_React$Component) {
         htmlFor: "timezone" + this.props.attributes.id
       }, "Timezone"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "timezone" + this.props.attributes.id,
+        name: "timezone",
         id: "timezone" + this.props.attributes.id,
         className: "form-control",
         type: "text",

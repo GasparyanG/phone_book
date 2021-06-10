@@ -39,20 +39,23 @@ var Form = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "addContact", function () {
       var specAssembler = new SpecificationAssembler(_this.data, ContactEntity.table_name, true);
       var encodedData = JSON.stringify(specAssembler.spec);
+
+      var self = _assertThisInitialized(_this);
+
       $.ajax({
         url: "/" + ContactEntity.table_name,
         method: "POST",
         data: encodedData,
         // dataType: Resource.dataType,
         success: function success(result) {
-          console.log(result);
+          self.props.populate();
         },
         error: function error(e) {}
       }); // Ajax call should be triggered here
     });
 
     _defineProperty(_assertThisInitialized(_this), "updateField", function (e) {
-      _this.data[e.target.name + Form.id] = e.target.value;
+      _this.data[e.target.name] = e.target.value;
     });
 
     _this.data = {
@@ -71,11 +74,11 @@ var Form = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.props.new_is_pressed) return /*#__PURE__*/React.createElement("div", {
-        className: "navigation__form mx-3"
+        className: "navigation__form col-md-8 offset-md-4"
       }, /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
       }, /*#__PURE__*/React.createElement("div", {
-        className: "input-group input-group-sm mb-3 w-25"
+        className: "input-group input-group-sm mb-3 w-50"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
         htmlFor: "first_name" + Form.id
@@ -83,11 +86,11 @@ var Form = /*#__PURE__*/function (_React$Component) {
         onChange: this.updateField,
         className: "form-control",
         id: "first_name" + Form.id,
-        name: "first_name" + Form.id,
+        name: "first_name",
         type: "text",
         placeholder: "Type fist name..."
       })), /*#__PURE__*/React.createElement("div", {
-        className: "input-group input-group-sm mb-3 w-25"
+        className: "input-group input-group-sm mb-3 w-50"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
         htmlFor: "last_name" + Form.id
@@ -95,52 +98,52 @@ var Form = /*#__PURE__*/function (_React$Component) {
         onChange: this.updateField,
         className: "form-control",
         id: "last_name" + Form.id,
-        name: "last_name" + Form.id,
+        name: "last_name",
         type: "text",
         placeholder: "Type last name..."
       }))), /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
       }, /*#__PURE__*/React.createElement("div", {
-        className: "input-group input-group-sm mb-3 w-25"
+        className: "input-group input-group-sm mb-3 w-50"
       }, /*#__PURE__*/React.createElement("label", {
-        htmlFor: "phone_number",
+        htmlFor: "phone_number" + Form.id,
         className: "input-group-text"
       }, "Phone Number"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
         className: "form-control",
-        id: "phone_number",
+        id: "phone_number" + Form.id,
         name: "phone_number",
         type: "text",
         placeholder: "Type phone number..."
       }))), /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
       }, /*#__PURE__*/React.createElement("div", {
-        className: "input-group input-group-sm mb-3 w-25"
+        className: "input-group input-group-sm mb-3 w-50"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
-        htmlFor: "country_code"
+        htmlFor: "country_code" + Form.id
       }, "Country Code"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
         className: "form-control",
-        id: "country_code",
+        id: "country_code" + Form.id,
         name: "country_code",
         type: "text",
         placeholder: "Type country code..."
       })), /*#__PURE__*/React.createElement("div", {
-        className: "input-group input-group-sm mb-3 w-25"
+        className: "input-group input-group-sm mb-3 w-50"
       }, /*#__PURE__*/React.createElement("label", {
         className: "input-group-text",
-        htmlFor: "timezone"
+        htmlFor: "timezone" + Form.id
       }, "Timezone"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
         className: "form-control",
-        id: "timezone",
+        id: "timezone" + Form.id,
         name: "timezone",
         type: "text",
         placeholder: "Type timezone..."
       }))), /*#__PURE__*/React.createElement("button", {
         onClick: this.addContact,
-        className: "btn btn-secondary mb-3",
+        className: "btn btn-secondary mb-3 w-50",
         type: "button"
       }, "Add"));
       return /*#__PURE__*/React.createElement("div", null);
