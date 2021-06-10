@@ -25,8 +25,13 @@ class ReadingCollectionStrategy extends ReadingStrategy
 
     private function getContacts(Request $req): iterable
     {
-        // Filter the table based in query params: coming soon.
-        $contacts = $this->em->getRepository(Contact::class)->findAll();
+        // Filter the table based on query params
+        $searchParam = $req->query->get(Resource::SEARCH);
+        if ($searchParam)
+            $contacts = $this->em->getRepository(Contact::class)->findByName($searchParam);
+        else
+            $contacts = $this->em->getRepository(Contact::class)->findAll();
+
         if (count($contacts) == 1) return [];
         return $contacts;
     }

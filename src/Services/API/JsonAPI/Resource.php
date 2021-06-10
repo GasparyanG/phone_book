@@ -15,6 +15,7 @@ class Resource
     const PAGE= 'page';
     const PAGE_NUMBER = 'number';
     const PAGE_SIZE = 'size';
+    const SEARCH = 'search';
 
     // TOP LEVEL
     const DATA = 'data';
