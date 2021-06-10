@@ -25,6 +25,7 @@ class RoutingMiddleware implements MiddlewareInterface
 
             // API
             $r->addRoute(Request::METHOD_POST, "/contacts", ["Contact", "create"]);
+            $r->addRoute(Request::METHOD_PATCH, "/contacts/{id}", ["Contact", "update"]);
         });
 
 		$httpMethod = $request->getMethod();

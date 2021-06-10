@@ -18,7 +18,7 @@ use GuzzleHttp\Psr7\Request as RequestGuzzle;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ContactManipulator // This eventually should become an abstract class with strategies!
+abstract class ContactManipulator
 {
     /**
      * @var EntityManager $em
@@ -30,45 +30,7 @@ class ContactManipulator // This eventually should become an abstract class with
         $this->em = Connection::getEntityManager();
     }
 
-
-    public function create(Request $req): array
-    {
-        $content = $req->getContent();
-        $decodedContent = json_decode($content, true);
-
-        $violations = $this->validate($decodedContent);
-        if (count($violations) > 0)
-            return $this->error($violations);
-
-        return $this->success($this->insert($decodedContent));
-    }
-
-    protected function insert(array $decodedContent): Contact
-    {
-        // Extract attributes
-        $resource = new Resource($decodedContent);
-        $attributes = $resource->getAttributes();
-
-        // Create Contact
-        $contact = new Contact();
-        $contact->setFirstName($attributes[Contact::FIRST_NAME]);
-        if ($this->fieldExists($attributes, Contact::LAST_NAME))
-            $contact->setLastName($attributes[Contact::LAST_NAME]);
-        $contact->setPhoneNumber($attributes[Contact::PHONE_NUMBER]);
-        if ($this->fieldExists($attributes, Contact::COUNTRY_CODE))
-            $contact->setCountryCode($this->sanitizedValue($attributes[Contact::COUNTRY_CODE], Endpoints::COUNTRY_CODE));
-        if ($this->fieldExists($attributes, Contact::TIMEZONE))
-            $contact->setTimezone($this->sanitizedValue($attributes[Contact::TIMEZONE], Endpoints::TIMEZONE));
-
-        $contact->setInsertedOn(date_create());
-        $contact->setUpdatedOn(date_create());
-
-        // Persist
-        $this->em->persist($contact);
-        $this->em->flush();
-
-        return $contact;
-    }
+    abstract public function actUpon(Request $req, array $placeholders = []): array;
 
     protected function sanitizedValue(string $valueToCompareAgainst, string $endpoint): string
     {
