@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Models\CreationStrategy;
 use App\Models\DeletingStrategy;
+use App\Models\ReadingCollectionStrategy;
 use App\Models\ReadingStrategy;
 use App\Models\UpdateStrategy;
 use App\Services\API\JsonAPI\Error;
@@ -34,7 +35,7 @@ class Contact
 
     public function readCollection(Request $req): Response
     {
-        $contactMn = new ReadingStrategy();
+        $contactMn = new ReadingCollectionStrategy();
         $creationResponse = $contactMn->actUpon($req);
 
         // Respond
