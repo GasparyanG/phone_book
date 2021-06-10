@@ -6,9 +6,13 @@ namespace App\Services\API\JsonAPI;
 
 class Error
 {
+    // Primary (a.k.a. top level) keys.
     const STATUS = "status";
     const TITLE = "title";
     const ERRORS = "errors";
+
+    // Secondary keys.
+    const MESSAGE = "message";
 
     /**
      * @var array $representation

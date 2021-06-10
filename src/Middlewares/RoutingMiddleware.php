@@ -2,6 +2,7 @@
 
 namespace App\Middlewares;
 
+use App\Services\API\JsonAPI\Error;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Services\Dispatching\DispatcherHelper\RoutingInformationHandler;
@@ -34,12 +35,22 @@ class RoutingMiddleware implements MiddlewareInterface
 
 		switch ($routeInfo[0]) {
             case FastRoute\Dispatcher::NOT_FOUND:
-		        // TODO: Handle this
-		        break;
-		    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
-		        $allowedMethods = $routeInfo[1];
-		        // ... 405 Method Not Allowed
-		        break;
+		        return new Response(json_encode($this->prepareError(Response::HTTP_NOT_FOUND)));
+		    case FastRoute\Dispatcher::METHOD_NOT_ALLOWED: {
+                $allowedMethods = $routeInfo[1];
+
+                $message = "Wrong method, try these instead: ";
+                for ($i = 0; $i < count($allowedMethods); $i++) {
+                    if (count($allowedMethods) - 1 != $i)
+                        $message .= $allowedMethods[$i] . ",";
+                    else
+                        $message .= $allowedMethods[$i];
+                }
+
+                return new Response(json_encode(
+                    $this->prepareError(Response::HTTP_METHOD_NOT_ALLOWED, $message)
+                ));
+            }
 		    case FastRoute\Dispatcher::FOUND:
 				// dispatcher handling preparation
 		        $handler = $routeInfo[1];
@@ -48,7 +59,6 @@ class RoutingMiddleware implements MiddlewareInterface
 		        
 		        $dispatcher = new Dispatcher();
 		        return $dispatcher->dispatch($request, $routingInformationHandler);
-		        break;
 		}
 	}
 
@@ -56,4 +66,17 @@ class RoutingMiddleware implements MiddlewareInterface
 	{
 		$this->next = $middelware;
 	}
+
+	private function prepareError(int $statusCode, ?string $message = null): array
+    {
+        $error = new Error();
+        $error->setTitle(Response::$statusTexts[$statusCode]);
+        $error->setStatus($statusCode);
+
+        if ($message)
+            $error->setErrors([Error::MESSAGE => $message]);
+
+        $error->arrayRepresentation();
+        return $error->getRepresentation();
+    }
 }
