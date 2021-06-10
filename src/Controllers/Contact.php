@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use App\Models\CreationStrategy;
 use App\Models\DeletingStrategy;
+use App\Models\ReadingStrategy;
 use App\Models\UpdateStrategy;
 use App\Services\API\JsonAPI\Error;
 use App\Services\API\JsonAPI\Resource;
@@ -14,6 +15,38 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Contact
 {
+    public function read(Request $req, array $placeholders): Response
+    {
+        $contactMn = new ReadingStrategy();
+        $readingResponse = $contactMn->actUpon($req, $placeholders);
+
+        // Respond
+        $resp = new Response(json_encode($readingResponse));
+        if (isset($readingResponse[Resource::DATA]))
+            $resp->setStatusCode(Response::HTTP_OK);
+        else if (isset($readingResponse[Error::STATUS]))
+            $resp->setStatusCode(
+                $this->detectErrorCode($readingResponse, Response::HTTP_UNPROCESSABLE_ENTITY)
+            );
+
+        return $resp;
+    }
+
+    public function readCollection(Request $req): Response
+    {
+        $contactMn = new ReadingStrategy();
+        $creationResponse = $contactMn->actUpon($req);
+
+        // Respond
+        $resp = new Response(json_encode($creationResponse));
+        if (isset($creationResponse[Resource::DATA]))
+            $resp->setStatusCode(Response::HTTP_OK);
+        else if (isset($creationResponse[Error::ERRORS]))
+            $resp->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+
+        return $resp;
+    }
+
     public function create(Request $req): Response
     {
         $contactMn = new CreationStrategy();
