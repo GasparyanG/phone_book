@@ -37,8 +37,10 @@ class Contact
         $resp = new Response(json_encode($updateResponse));
         if (isset($updateResponse[Resource::DATA]))
             $resp->setStatusCode(Response::HTTP_OK);
-        else if (isset($updateResponse[Error::ERRORS]))
-            $resp->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+        else if (isset($updateResponse[Error::STATUS]))
+            $resp->setStatusCode(
+                $this->detectErrorCode($updateResponse, Response::HTTP_UNPROCESSABLE_ENTITY)
+            );
 
         return $resp;
     }
@@ -46,14 +48,24 @@ class Contact
     public function delete(Request $req, array $placeholders): Response
     {
         $contactMn = new DeletingStrategy();
-        $updateResponse = $contactMn->actUpon($req, $placeholders);
+        $deletionResponse = $contactMn->actUpon($req, $placeholders);
 
-        $resp = new Response(json_encode($updateResponse));
-        if (isset($updateResponse[Resource::DATA]))
+        $resp = new Response(json_encode($deletionResponse));
+        if (isset($deletionResponse[Resource::DATA]))
             $resp->setStatusCode(Response::HTTP_OK);
-        else if (isset($updateResponse[Error::ERRORS]))
-            $resp->setStatusCode(Response::HTTP_UNPROCESSABLE_ENTITY);
+        else if (isset($deletionResponse[Error::STATUS]))
+            $resp->setStatusCode(
+                $this->detectErrorCode($deletionResponse, Response::HTTP_UNPROCESSABLE_ENTITY)
+            );
 
         return $resp;
+    }
+
+    private function detectErrorCode(array $responseArray, int $default = Response::HTTP_NOT_FOUND): int
+    {
+        if (isset($responseArray[Error::STATUS]))
+            return $responseArray[Error::STATUS];
+
+        return $default;
     }
 }
