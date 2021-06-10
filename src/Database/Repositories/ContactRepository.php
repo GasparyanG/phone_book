@@ -8,6 +8,8 @@ class ContactRepository extends EntityRepository
 {
     public function findByName(string $value, int $offset = 0, ?int $limit = null): iterable
     {
+        $offset = $offset < 0 ? 0 : $offset;
+
         $res = $this->createQueryBuilder('c')
             ->select('c')
             ->where("c.firstName LIKE :value")
@@ -24,6 +26,8 @@ class ContactRepository extends EntityRepository
 
     public function findAllWithLimit(int $offset = 0, ?int $limit = null): iterable
     {
+        $offset = $offset < 0 ? 0 : $offset;
+
         $res = $this->createQueryBuilder('c')
             ->select('c')
             ->setFirstResult($offset)

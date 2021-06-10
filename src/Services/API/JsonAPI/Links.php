@@ -65,7 +65,7 @@ class Links
         $this->em = Connection::getEntityManager();
         $this->queryBag = $queryBag;
         $this->request = Request::createFromGlobals();
-        $this->total = $total;
+        $this->total = $total - 1;
 
         $this->preparePageAndSize();
     }
@@ -106,7 +106,7 @@ class Links
             $queryParams[Resource::PAGE] = $this->defaults();
 
         // compute last
-        $last = round($this->total / self::$size) - 1;
+        $last = round($this->total / self::$size);
 
         $queryParams[Resource::PAGE][Resource::PAGE_NUMBER] = $last;
         return $this->prepareUri($queryParams);
