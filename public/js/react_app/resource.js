@@ -33,9 +33,16 @@ class Resource {
     static dataType = "application/json";
 
     // keys to access api result
+    static data_key = "data";
     static id_key = "id";
     static type_key = "type";
     static attributes_key = "attributes";
+
+    constructor(data) {
+        this._attributes = data[Resource.attributes_key];
+    }
+
+    get attributes() { return this._attributes; }
 }
 
 

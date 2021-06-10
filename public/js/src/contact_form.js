@@ -40,7 +40,7 @@ class Form extends React.Component {
     render() {
         if (this.props.new_is_pressed)
             return (
-                <div className="navigation__form">
+                <div className="navigation__form mx-3">
                     <div className="navigation__form__input">
                         <div className="input-group input-group-sm mb-3 w-25">
                             <label className="input-group-text" htmlFor="first_name">First Name</label>
@@ -75,7 +75,7 @@ class Form extends React.Component {
                         </div>
                     </div>
 
-                    <button onClick={this.addContact} className="btn btn-secondary" type="button">Add</button>
+                    <button onClick={this.addContact} className="btn btn-secondary mb-3" type="button">Add</button>
                 </div>
             );
 

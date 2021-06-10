@@ -23,6 +23,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 import { Form } from "./contact_form";
+import { Contacts } from "./contacts";
+import { ContactEntity } from "../react_app/resource";
 
 var TheView = /*#__PURE__*/function (_React$Component) {
   _inherits(TheView, _React$Component);
@@ -36,14 +38,40 @@ var TheView = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
 
-    _defineProperty(_assertThisInitialized(_this), "openContactForm", function () {
+    _defineProperty(_assertThisInitialized(_this), "updateContacts", function (cont) {
       _this.setState({
-        new_is_pressed: !_this.state.new_is_pressed
+        new_is_pressed: _this.state.new_is_pressed,
+        contacts: cont
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "populateContacts", function () {
+      var self = _assertThisInitialized(_this);
+
+      $.ajax({
+        url: "/" + ContactEntity.table_name,
+        method: "GET",
+        success: function success(result) {
+          self.updateContacts(JSON.parse(result));
+        },
+        error: function error(e) {
+          console.log(e);
+        }
+      });
+    });
+
+    _defineProperty(_assertThisInitialized(_this), "openContactForm", function () {
+      _this.setState({
+        new_is_pressed: !_this.state.new_is_pressed,
+        contacts: _this.state.contacts
+      });
+    });
+
+    _this.populateContacts();
+
     _this.state = {
-      new_is_pressed: false
+      new_is_pressed: false,
+      contacts: []
     };
     return _this;
   }
@@ -54,11 +82,13 @@ var TheView = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         className: "navigation"
       }, /*#__PURE__*/React.createElement("button", {
-        className: "btn btn-primary mb-3",
+        className: "btn btn-primary mx-3 my-3",
         onClick: this.openContactForm,
         type: "navigation__button"
       }, "New Contact"), /*#__PURE__*/React.createElement(Form, {
         new_is_pressed: this.state.new_is_pressed
+      }), /*#__PURE__*/React.createElement(Contacts, {
+        contacts: this.state.contacts
       })));
     }
   }]);

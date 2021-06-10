@@ -71,7 +71,7 @@ var Form = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       if (this.props.new_is_pressed) return /*#__PURE__*/React.createElement("div", {
-        className: "navigation__form"
+        className: "navigation__form mx-3"
       }, /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
       }, /*#__PURE__*/React.createElement("div", {
@@ -140,7 +140,7 @@ var Form = /*#__PURE__*/function (_React$Component) {
         placeholder: "Type timezone..."
       }))), /*#__PURE__*/React.createElement("button", {
         onClick: this.addContact,
-        className: "btn btn-secondary",
+        className: "btn btn-secondary mb-3",
         type: "button"
       }, "Add"));
       return /*#__PURE__*/React.createElement("div", null);
