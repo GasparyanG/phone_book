@@ -74,42 +74,73 @@ var Form = /*#__PURE__*/function (_React$Component) {
         className: "navigation__form"
       }, /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
-      }, /*#__PURE__*/React.createElement("input", {
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "input-group input-group-sm mb-3 w-25"
+      }, /*#__PURE__*/React.createElement("label", {
+        className: "input-group-text",
+        htmlFor: "first_name"
+      }, "First Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
+        className: "form-control",
+        id: "first_name",
         name: "first_name",
-        type: "text"
-      }), /*#__PURE__*/React.createElement("input", {
+        type: "text",
+        placeholder: "Type fist name..."
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "input-group input-group-sm mb-3 w-25"
+      }, /*#__PURE__*/React.createElement("label", {
+        className: "input-group-text",
+        htmlFor: "last_name"
+      }, "Last Name"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
+        className: "form-control",
+        id: "last_name",
         name: "last_name",
-        type: "text"
-      })), /*#__PURE__*/React.createElement("div", {
+        type: "text",
+        placeholder: "Type last name..."
+      }))), /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
-      }, /*#__PURE__*/React.createElement("input", {
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "input-group input-group-sm mb-3 w-25"
+      }, /*#__PURE__*/React.createElement("label", {
+        htmlFor: "phone_number",
+        className: "input-group-text"
+      }, "Phone Number"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
+        className: "form-control",
+        id: "phone_number",
         name: "phone_number",
-        type: "text"
-      })), /*#__PURE__*/React.createElement("div", {
+        type: "text",
+        placeholder: "Type phone number..."
+      }))), /*#__PURE__*/React.createElement("div", {
         className: "navigation__form__input"
-      }, /*#__PURE__*/React.createElement("input", {
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "input-group input-group-sm mb-3 w-25"
+      }, /*#__PURE__*/React.createElement("label", {
+        className: "input-group-text",
+        htmlFor: "country_code"
+      }, "Country Code"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
+        className: "form-control",
+        id: "country_code",
         name: "country_code",
-        type: "text"
-      }), /*#__PURE__*/React.createElement("input", {
-        onChange: this.updateField,
-        name: "timezone",
-        type: "text"
+        type: "text",
+        placeholder: "Type country code..."
       })), /*#__PURE__*/React.createElement("div", {
-        className: "navigation__form__input"
-      }, /*#__PURE__*/React.createElement("input", {
+        className: "input-group input-group-sm mb-3 w-25"
+      }, /*#__PURE__*/React.createElement("label", {
+        className: "input-group-text",
+        htmlFor: "timezone"
+      }, "Timezone"), /*#__PURE__*/React.createElement("input", {
         onChange: this.updateField,
-        name: "inserted_on",
-        type: "text"
-      }), /*#__PURE__*/React.createElement("input", {
-        onChange: this.updateField,
-        name: "updated_on",
-        type: "text"
-      })), /*#__PURE__*/React.createElement("button", {
+        className: "form-control",
+        id: "timezone",
+        name: "timezone",
+        type: "text",
+        placeholder: "Type timezone..."
+      }))), /*#__PURE__*/React.createElement("button", {
         onClick: this.addContact,
+        className: "btn btn-secondary",
         type: "button"
       }, "Add"));
       return /*#__PURE__*/React.createElement("div", null);

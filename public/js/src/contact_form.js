@@ -42,22 +42,40 @@ class Form extends React.Component {
             return (
                 <div className="navigation__form">
                     <div className="navigation__form__input">
-                        <input onChange={this.updateField} name="first_name" type="text"/>
-                        <input onChange={this.updateField} name="last_name" type="text"/>
+                        <div className="input-group input-group-sm mb-3 w-25">
+                            <label className="input-group-text" htmlFor="first_name">First Name</label>
+                            <input onChange={this.updateField} className="form-control" id="first_name" name="first_name" type="text"
+                                placeholder="Type fist name..."/>
+                        </div>
+
+                        <div className="input-group input-group-sm mb-3 w-25">
+                            <label className="input-group-text" htmlFor="last_name">Last Name</label>
+                            <input onChange={this.updateField} className="form-control" id="last_name" name="last_name" type="text"
+                                   placeholder="Type last name..."/>
+                        </div>
                     </div>
                     <div className="navigation__form__input">
-                        <input onChange={this.updateField} name="phone_number" type="text"/>
+                        <div className="input-group input-group-sm mb-3 w-25">
+                            <label htmlFor="phone_number" className="input-group-text">Phone Number</label>
+                            <input onChange={this.updateField} className="form-control" id="phone_number" name="phone_number" type="text"
+                                   placeholder="Type phone number..."/>
+                        </div>
                     </div>
                     <div className="navigation__form__input">
-                        <input onChange={this.updateField} name="country_code" type="text"/>
-                        <input onChange={this.updateField} name="timezone" type="text"/>
-                    </div>
-                    <div className="navigation__form__input">
-                        <input onChange={this.updateField} name="inserted_on" type="text"/>
-                        <input onChange={this.updateField} name="updated_on" type="text"/>
+                        <div className="input-group input-group-sm mb-3 w-25">
+                            <label className="input-group-text" htmlFor="country_code">Country Code</label>
+                            <input onChange={this.updateField} className="form-control" id="country_code" name="country_code" type="text"
+                                   placeholder="Type country code..."/>
+                        </div>
+
+                        <div className="input-group input-group-sm mb-3 w-25">
+                            <label className="input-group-text" htmlFor="timezone">Timezone</label>
+                            <input onChange={this.updateField} className="form-control" id="timezone" name="timezone" type="text"
+                                   placeholder="Type timezone..."/>
+                        </div>
                     </div>
 
-                    <button onClick={this.addContact} type="button">Add</button>
+                    <button onClick={this.addContact} className="btn btn-secondary" type="button">Add</button>
                 </div>
             );
 

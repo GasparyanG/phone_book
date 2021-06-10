@@ -21,7 +21,7 @@ class TheView extends React.Component {
         return (
             <div>
                 <div className="navigation">
-                    <button onClick={this.openContactForm} type="navigation__button">New Contact</button>
+                    <button className="btn btn-primary mb-3" onClick={this.openContactForm} type="navigation__button">New Contact</button>
                     <Form new_is_pressed={this.state.new_is_pressed}/>
                 </div>
             </div>

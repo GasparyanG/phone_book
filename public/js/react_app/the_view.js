@@ -54,6 +54,7 @@ var TheView = /*#__PURE__*/function (_React$Component) {
       return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
         className: "navigation"
       }, /*#__PURE__*/React.createElement("button", {
+        className: "btn btn-primary mb-3",
         onClick: this.openContactForm,
         type: "navigation__button"
       }, "New Contact"), /*#__PURE__*/React.createElement(Form, {
