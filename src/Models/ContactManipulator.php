@@ -9,6 +9,7 @@ use App\Services\Validation\AbstractStrategy;
 use App\Services\Validation\InAContainer;
 use App\Services\Validation\NotBlank;
 use App\Services\Validation\Validator;
+use App\Services\Validation\ValidPhoneNumber;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request as RequestGuzzle;
 use Symfony\Component\HttpFoundation\Request;
@@ -48,7 +49,7 @@ class ContactManipulator // This eventually should become an abstract class with
             $totalViolations[Contact::FIRST_NAME] = $violations;
 
         // Phone number
-        $violations = $this->phoneNumberValidation($attributes[Contact::PHONE_NUMBER]);
+        $violations = $validator->validate($attributes[Contact::PHONE_NUMBER], [new NotBlank(), new ValidPhoneNumber()]);
         if (count($violations) > 0)
             $totalViolations[Contact::PHONE_NUMBER] = $violations;
 
@@ -63,13 +64,6 @@ class ContactManipulator // This eventually should become an abstract class with
             $totalViolations[Contact::TIMEZONE] = $violations;
 
         return $totalViolations;
-    }
-
-    // This method need to be pulled up.
-    protected function phoneNumberValidation(string $phoneNumber): array
-    {
-        // TODO: Validate phone number based on some standards.
-        return [];
     }
 
     protected function countryCodeValidation(string $countryCode): array
