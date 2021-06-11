@@ -70,7 +70,7 @@ Configure your apache in the following directory `/etc/apache2`.
 ```
 
 ## Usage
-The app is ideally meant to be used via API client (e.g. Postman), but it can be used in the browser as well, although, with some limitations (e.g. pagination, deletion).
+The app is ideally meant to be used via API client (e.g. Postman), but it can be used in the browser as well, although, with some limitations (e.g. pagination, errors are returned, but not displayed).
 
 ### API Calls
 1. **Create contact** (phone-book record)
@@ -361,12 +361,23 @@ $this->createQueryBuilder('c')
 ---
 6. **Error detection**
 
-* If the endpoint is not found the following is being returned:
+* If the endpoint is not found:
 ```json
 {"status":"404","title":"Not Found"}
 ```
 
-* If there is any error detected while validating the fields, the `422` error will be returned with appropriate message(s).
+* If the method (http verb) is not supported:
+```json
+{
+    "status": "405",
+    "title": "Method Not Allowed",
+    "errors": {
+        "message": "Wrong method, try these instead: GET,POST"
+    }
+}
+```
+
+* If there is any error detected while validating the fields:
 ```json
 {
     "status": "422",

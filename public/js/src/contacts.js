@@ -35,13 +35,27 @@ class Contact extends React.Component {
         });
     }
 
+    deleteContact = () => {
+        let self = this;
+        $.ajax({
+            url: "/" + ContactEntity.table_name + "/" + self.props.attributes.id,
+            method: "DELETE",
+            success: function(result) {
+                let el = document.getElementById(self.props.attributes.id + "_card");
+                el.remove();
+            },
+            error: function(e) {
+            }
+        });
+    }
+
     updateField = (e) => {
         this.data[e.target.name] = e.target.value;
     }
 
     render() {
         return (
-            <div className="card mx-3">
+            <div id={this.props.attributes.id + "_card"} className="card mx-3 mb-3">
                 <div className="input-group input-group-sm mb-1">
                     <label className="input-group-text" htmlFor={"id" + this.props.attributes.id}>id</label>
                     <div id={"id" + this.props.attributes.id} className="form-control">{this.props.attributes.id}</div>
@@ -86,6 +100,7 @@ class Contact extends React.Component {
                 </div>
 
                 <button onClick={this.updateContact} className="btn btn-secondary mt-1">update</button>
+                <button onClick={this.deleteContact} className="btn btn-danger mt-1">delete</button>
             </div>
         );
     }
@@ -114,7 +129,7 @@ class Contacts extends React.Component {
 
         let contacts = this.prepareContacts();
         return (
-            <div className="d-flex">
+            <div className="d-flex flex-wrap">
                 {contacts}
             </div>
         );

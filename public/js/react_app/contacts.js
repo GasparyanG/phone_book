@@ -54,6 +54,20 @@ var Contact = /*#__PURE__*/function (_React$Component) {
       });
     });
 
+    _defineProperty(_assertThisInitialized(_this), "deleteContact", function () {
+      var self = _assertThisInitialized(_this);
+
+      $.ajax({
+        url: "/" + ContactEntity.table_name + "/" + self.props.attributes.id,
+        method: "DELETE",
+        success: function success(result) {
+          var el = document.getElementById(self.props.attributes.id + "_card");
+          el.remove();
+        },
+        error: function error(e) {}
+      });
+    });
+
     _defineProperty(_assertThisInitialized(_this), "updateField", function (e) {
       _this.data[e.target.name] = e.target.value;
     });
@@ -75,7 +89,8 @@ var Contact = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement("div", {
-        className: "card mx-3"
+        id: this.props.attributes.id + "_card",
+        className: "card mx-3 mb-3"
       }, /*#__PURE__*/React.createElement("div", {
         className: "input-group input-group-sm mb-1"
       }, /*#__PURE__*/React.createElement("label", {
@@ -163,7 +178,10 @@ var Contact = /*#__PURE__*/function (_React$Component) {
       }, this.props.attributes.updated_on)), /*#__PURE__*/React.createElement("button", {
         onClick: this.updateContact,
         className: "btn btn-secondary mt-1"
-      }, "update"));
+      }, "update"), /*#__PURE__*/React.createElement("button", {
+        onClick: this.deleteContact,
+        className: "btn btn-danger mt-1"
+      }, "delete"));
     }
   }]);
 
@@ -202,7 +220,7 @@ var Contacts = /*#__PURE__*/function (_React$Component2) {
       if (this.props.contacts.length == 0) return /*#__PURE__*/React.createElement("div", null);
       var contacts = this.prepareContacts();
       return /*#__PURE__*/React.createElement("div", {
-        className: "d-flex"
+        className: "d-flex flex-wrap"
       }, contacts);
     }
   }]);
