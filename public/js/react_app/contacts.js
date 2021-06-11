@@ -202,6 +202,7 @@ var Contacts = /*#__PURE__*/function (_React$Component2) {
   _createClass(Contacts, [{
     key: "prepareContacts",
     value: function prepareContacts() {
+      if (!this.props.contacts.data) return [];
       var collection = this.props.contacts.data;
       var contacts = [];
 

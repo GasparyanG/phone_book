@@ -112,6 +112,7 @@ class Contacts extends React.Component {
     }
 
     prepareContacts() {
+        if (!this.props.contacts.data) return [];
         let collection = this.props.contacts.data;
 
         let contacts = [];
