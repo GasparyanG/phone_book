@@ -1,7 +1,25 @@
 # Phone Book
 Interact with data storage via flexible JSON:API.
 
+Fresh playground: http://phone-book.gasparyan.am/
+
 ## Installation and Setup
+
+### Installation
+Get repository:
+```shell
+git clone https://github.com/GasparyanG/phone_book.git
+```
+
+Go to `phone_book` directory:
+```shell
+cd phone_book
+```
+
+Get dependencies:
+```shell
+composer install
+```
 
 ### Database
 Configure the `config/database.json` file to be able to use database.
@@ -488,7 +506,7 @@ The following formats are valid for phone numbers:
 ```
 Sources that have helped me:
 
-https://stackoverflow.com/questions/15745545/is-there-a-standard-for-phone-numbers
-https://en.wikipedia.org/wiki/E.123
-https://en.wikipedia.org/wiki/List_of_international_call_prefixes
-https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number#answer-16702965
+* https://stackoverflow.com/questions/15745545/is-there-a-standard-for-phone-numbers
+* https://en.wikipedia.org/wiki/E.123
+* https://en.wikipedia.org/wiki/List_of_international_call_prefixes
+* https://stackoverflow.com/questions/16699007/regular-expression-to-match-standard-10-digit-phone-number#answer-16702965
